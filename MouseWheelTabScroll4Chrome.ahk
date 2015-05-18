@@ -15,18 +15,28 @@ Menu, Tray, Tip, Mousewheel tab scroll for Chrome (1.0.3)
 
 WheelUp::
 WheelDown::
+	;CoordMode, Mouse, Window
 	MouseGetPos,, ypos, id
-	WinGetClass, class, ahk_id %id%
-	WinGet, maximized, MinMax, %id%
 
-	If (ypos < 40 and (InStr(class,"Chrome_WidgetWin") or InStr(class,"Progman")))
+	WinGetClass, class, ahk_id %id%
+	;WinGet, maximized, MinMax, %id%
+	;WinGetPos, wX, wY, , , A
+
+	;CoordMode, Mouse, Screen
+	;MouseGetPos,, MousescreenY, id
+
+	;ToolTip, ypos: %ypos% mY: %MousescreenY% wY: %wY% %id% %class%
+
+	If (ypos < 60 and (InStr(class,"Chrome_WidgetWin") or InStr(class,"Progman")))
 	{
 
-		if (maximized)
-			WinActivate ahk_id %id%
 
-		;IfWinNotActive ahk_id %id%
+
+		;if (maximized)
 			;WinActivate ahk_id %id%
+
+		IfWinNotActive ahk_id %id%
+			WinActivate ahk_id %id%
 		If A_ThisHotkey = WheelUp
 			Send ^{PgUp}
 		Else
